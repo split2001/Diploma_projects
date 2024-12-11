@@ -1,0 +1,30 @@
+{% extends 'C:\Users\davla\PycharmProjects\Diploma\diploma\templates\base.html'%}
+{% load static%}
+
+{% block title %}
+Главная
+{% endblock %}
+
+{% block header %}
+{{block.super}}
+{% endblock %}
+
+{% block navigation %}
+    {{block.super}}
+{% endblock  %}
+
+{% block content %}
+<div class="text-center my-4">
+    <h4>Сайт для тех, кто любит не только готовить, но и делиться своими рецептами.</h4>
+    {% if user.is_authenticated %}
+    <p>Добро пожаловать,<strong>{{user.username}}!</strong></p>
+     <p>  Приятного аппетита!</p>
+    {% else %}
+    <p>Зарегистрируйся/авторизуйся и получи полный доступ к функционалу.</p>
+
+    {% endif %}
+</div>
+<div class="d-flex justify-content-center align-items-center" style="min-height: 50vh;">
+    <img src='{% static "images/3.png" %}'alt="Example image" class="img-fluid" style="max-width: 50%; height: auto;">
+</div>
+{% endblock  %}

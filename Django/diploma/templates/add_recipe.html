@@ -1,0 +1,45 @@
+{% extends 'C:\Users\davla\PycharmProjects\Diploma\diploma\templates\base.html' %}
+{% load static %}
+{% load widget_tweaks%}
+
+{% block title %}
+Добавить рецепт
+{% endblock %}
+
+{% block header %}
+{{ block.super }}
+{% endblock %}
+
+{% block navigation %}
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+<div class="container d-flex justify-content-center mt-5">
+    <!-- Карточка с формами -->
+    <div class="card shadow-sm" style="width: 400px;">
+        <div class="card-header text-center bg-primary text-white">
+            <h5>Добавление рецепта</h5>
+        </div>
+        <div class="card-body">
+            <!-- Форма для добавления рецепта -->
+            <form method="post" enctype="multipart/form-data" class="mb-3">
+                {% csrf_token %}
+                {% for field in form %}
+                    <div class="mb-3">
+                        {{ field.label_tag }}
+                        {{ field|add_class:"form-control" }}
+                        {% if field.errors %}
+                            <div class="text-danger small mt-1">
+                                {{ field.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+                <button type="submit" class="btn btn-primary w-100">Добавить</button>
+            </form>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Авторизация
+{% endblock %}
+
+{% block header %}
+    {{ super() }}
+{% endblock %}
+
+{% block navigation %}
+    {{ super() }}
+{% endblock %}
+
+{% block content %}
+{% if error %}
+    <p style="color: red;">{{ error }}</p>
+{% endif %}
+<form class='text-center' method="post" action="/user/login">
+    <label for="username">Имя пользователя:</label><br>
+    <input type="text" id="username" name="username" required><br><br>
+
+    <label for="password">Пароль:</label><br>
+    <input type="password" id="password" name="password" required><br><br>
+
+
+       <button type="submit">Авторизоваться</button>
+</form>
+
+{% endblock %}

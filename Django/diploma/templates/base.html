@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}My Site{% endblock %}</title>
+    <!-- Подключение Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Стили для фиксированной навигации */
+        nav {
+            position: fixed;
+            top: 70px; /* Отступ сверху */
+            left: 0;
+            width: 200px; /* Фиксированная ширина панели */
+            height: 100%; /* Полная высота страницы */
+            background-color: #f8f9fa; /* Цвет фона */
+            padding: 10px; /* Внутренние отступы */
+            border-right: 1px solid #ddd; /* Граница справа */
+        }
+
+        /* Сдвиг основного содержимого, чтобы учесть панель навигации */
+        main {
+            margin-left: 220px; /* Отступ слева равен ширине панели + небольшой отступ */
+            padding: 20px; /* Внутренние отступы для красоты */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        {% block header %}
+        <h1 class="text-center">LET'S COOK IT!</h1>
+        {% endblock %}
+    </header>
+
+    <nav>
+        {% block navigation %}
+        <a href="/main" class="btn btn-outline-primary w-100 mb-2">Главная</a>
+        {% if user.is_authenticated %}
+            <a href="/lenta" class="btn btn-outline-success w-100 mb-2">Лента</a>
+            <a href="/add_recipe" class="btn btn-outline-success w-100 mb-2">Добавить рецепт</a>
+            <a href="/selected" class="btn btn-outline-success w-100 mb-2">Избранное</a>
+            <a href="/logout" class="btn btn-outline-danger w-100">Выход</a>
+        {% else %}
+            <a href="/login" class="btn btn-outline-success w-100">Вход</a>
+        {% endif %}
+        {% endblock %}
+    </nav>
+
+    <main class="container">
+        {% block content %}
+        <h3>Основное содержимое</h3>
+        {% endblock %}
+    </main>
+
+    <!-- Подключение JavaScript для Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

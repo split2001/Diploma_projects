@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block title %}Словарь{% endblock %}
+
+{% block header %}
+  {{ super() }}
+{% endblock %}
+
+{% block content %}
+<main>
+  {% if words %}
+    <div class="container py-5">
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
+        {% for word in words %}
+          <div class="col mb-4">
+            <div class="card h-100 shadow-sm border-light rounded">
+              <div class="card-header text-center bg-light font-weight-bold">
+                {{ word.title }}
+              </div>
+              <div class="card-body">
+                <p class="card-text text-center">{{ word.translation }}</p>
+                <p class="card-text text-muted">{{ word.description }}</p>
+                {% if word.img %}
+                  <div class="text-center">
+                    <img src="{{ url_for('static', filename='uploads/' ~ word.img) }}" alt="Image for {{ word.title }}" class="img-fluid rounded" style="max-height: 150px;">
+                  </div>
+                {% else %}
+                  <div class="text-center">
+                    <p>Изображение не доступно</p>
+                  </div>
+                {% endif %}
+              </div>
+              <div class="card-footer text-center">
+                <a href="/delete_favorites/{{ word.id }}" class="btn btn-danger btn-sm">Удалить</a>
+                <a href="/change_status/{{ word.id }}" class="btn {% if word.id in learned_words %} btn-danger btn-sm {% else %} btn-success btn-sm {% endif %} ">
+                  {% if word.id in learned_words %}
+                    Повторить
+                   {% else %}
+                      Выучил
+                     {% endif %}
+                </a>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  {% else %}
+    <div class="container py-5">
+      <h4 class="text-center">У вас пока нет избранных слов</h4>
+    </div>
+  {% endif %}
+</main>
+{% endblock %}

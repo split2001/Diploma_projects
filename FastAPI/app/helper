@@ -1,0 +1,41 @@
+pip freeze > requirments.txt
+
+pip install sqlalchemy
+pip install slugify
+pip install fastapi uvicorn
+pip install alembic для миграция бд
+pip install passlib[bcrypt]  для хэширования паролей
+pip install jinja2 для подключения html к приложению
+pip install python-multipart
+
+
+
+установка фреймворка FastAPI и сервера Uvicorn, который используется для запуска приложений на FastAPI:
+pip install fastapi uvicorn
+
+main.py, в котором будет базовое приложение на FastAPI.
+
+Для запуска сервера, в терминале используйте команду :
+uvicorn app.main:app
+
+
+создаем файл для настройки связи с БД.
+
+
+pip install alembic
+alembic init app/migrations создание файлов миграции
+
+в alembic.ini добавляем sqlalchemy.url = sqlite:///database.db
+
+в env.py делаем import моделей и класса base
+from app.models.user import User
+from app.models.book import Book
+from app.models.association import *
+from app.backend.db import Base
+target_metadata = Base.metadata
+
+
+
+alembic revision --autogenerate -m 'new migration' Инициализация миграции
+
+alembic upgrade head позволит  применить последнюю миграцию и создать таблицы User, Book и запись текущей версии миграции

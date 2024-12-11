@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Библиотека
+{% endblock %}
+
+{% block header %}
+    {{ super() }}
+{% endblock %}
+
+{% block navigation %}
+    {{ super() }}
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="text-center mb-4">
+        <a href="/book/create" class="btn btn-primary">Добавить книгу</a>
+    </div>
+
+    <h2 class="text-center mb-4">Список книг</h2>
+
+    <div class="row">
+        {% for book in books %}
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ book.title }}</h5>
+                        <p class="card-text">{{ book.description }}</p>
+                        <p><strong>Автор:</strong> {{ book.author }}</p>
+                        <p><strong>Жанр:</strong> {{ book.genre }}</p>
+                    </div>
+                    <div class="card-footer text-center">
+                        <a href="/book/add/{{ book.id }}" class="btn btn-primary">
+                            {{ 'Удалить из избранного' if book in user.books else 'Добавить в избранного' }}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

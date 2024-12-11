@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Регистрация
+{% endblock %}
+
+{% block header %}
+    {{ super() }}
+{% endblock %}
+
+{% block navigation %}
+    {{ super() }}
+{% endblock %}
+
+{% block content %}
+<h1 class="text-center mb-4">Регистрация</h1>
+
+{% if error %}
+    <p style="color: red;">{{ error }}</p>
+{% endif %}
+
+<form class='text-center' method="post" action="/user/register">
+    <label for="username">Имя пользователя:</label><br>
+    <input type="text" id="username" name="username" required><br><br>
+
+    <label for="password">Пароль:</label><br>
+    <input type="password" id="password" name="password" required><br><br>
+
+    <label for="firstname">Имя:</label><br>
+    <input type="text" id="firstname" name="firstname" required><br><br>
+
+    <label for="lastname">Фамилия:</label><br>
+    <input type="text" id="lastname" name="lastname" required><br><br>
+
+    <label for="age">Возраст:</label><br>
+    <input type="number" id="age" name="age" required><br><br>
+
+    <button type="submit">Зарегистрироваться</button>
+</form>
+
+{% endblock %}

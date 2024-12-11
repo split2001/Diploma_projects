@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block title %} Главная {% endblock %}
+{% block header %}
+{{ super() }}
+{% endblock %}
+
+{% block content %}
+<body class="d-flex flex-column h-100 text-center text-bg-dark">
+  <div class="container-fluid d-flex flex-column justify-content-center align-items-center">
+    <main class="px-3">
+      <h1>EnglishWeb.</h1>
+      <p class="lead">Добро пожаловать в EnglishWeb — ваш портал в мир английского языка!</p>
+      <img src="/static/images/main.png" class="img-fluid my-3" style="max-width: 75%; height: 50%; border-radius: 10px;">
+      {% if current_user.is_authenticated%}
+      <p>Приветствуем тебя, {{current_user.username}}! Начни свое путешествие в мир английского языка прямо сейчас. </p>
+      <p class="lead">
+        <a href="/dictionary" class="btn btn-lg btn-light fw-bold border-white bg-white">Начать изучение</a>
+      </p>
+      {% else %}
+      <p>На нашем сайте вы сможете легко и интересно изучать английский и расширять словарный запас.<br>
+          Чтобы пользоваться всеми возможностями сайта — регистрируйтесь прямо сейчас! </p>
+      <p class="lead">
+        <a href="/register" class="btn btn-lg btn-light fw-bold border-white bg-white">Зарегистрироваться</a>
+        <a href="/login" class="btn btn-lg btn-light fw-bold border-white bg-white">Авторизоваться</a>
+      </p>
+      {% endif %}
+    </main>
+
+    <footer class="mt-auto text-white-50">
+      <p>EnglishWeb by SPLIT.</p>
+    </footer>
+  </div>
+</body>
+{% endblock %}

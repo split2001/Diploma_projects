@@ -1,0 +1,62 @@
+pip install django
+
+django-admin startproject <name>
+
+cd <название каталога> переходим в каталог с приложением
+
+
+
+python manage.py startapp <name>создаем приложение
+
+
+
+В settings в INSTALLED_APPS добавляем и подключаем наше приложение
+'django.core.paginator',  # добавляем Paginator
+
+в settings в TEMPLATES 'DIRS': [BASE_DIR / 'templates'] BASE_DIR - переменная,которая хранит информацию о нашем проекте,
+'templates' - имя папки из которой django будет брать шаблоны
+
+
+python manage.py runserver
+
+python manage.py migrate команда для инициализации базы данных
+
+python manage.py createsuperuser создаем суперпользователя для получения доступа к административной панели
+
+python manage.py makemigrations для создания запросов по написанным нами моделям таблиц, после еще раз применяем migrate
+
+
+
+
+
+QuerySet запросы:
+ 1. python manage.py shell
+ 2. импортируем модели from task1.models  import <model name (Game)>
+ 3. обращаемся к модели,выводим количество ее объектов Buyer.objects.all()
+ 4. для создания объекта используем Buyer.objects.create(здесь прописываем атрибуты)
+5. для фильтрации и поиска по атрибутам  Buyer.objects.filter(name='killer33')
+6. для обновления данных Buyer.objects.filter(name='killer33').update(name='killer32')
+7. для получения количества объектов Buyer.objects.count()
+8. достать определенный объект: создаем переменную a = Buyer.objects.get(id=3)
+9. для удаления a.delete() или Buyer.objects.delete(id=1)
+10. чтобы удалить все объекты a = Buyer.objects.all() - a.delete()
+11. для присвоения используйте метод set(objects), который принимает коллекцию объектов, например:
+Game.objects.get(id=1).buyer.set((first_buyer, second_buyer)) - здесь игра c id=1 приобретается покупателями
+first_buyer и second_buyer.
+
+
+
+
+asgi, wsgi нужны для запуска приложения на стороннем сервере
+
+manage.py управляет сервером
+
+urls.py для маршрутизации пользователей по страницам
+
+admin |для админ панели и администрирования сайта
+
+apps настройки приложения
+
+models модели с данными
+
+views для визуального представления всей логики нашего приложения

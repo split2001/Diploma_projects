@@ -1,0 +1,42 @@
+{% extends 'C:\Users\davla\PycharmProjects\Diploma\diploma\templates\base.html'%}
+
+{% block title %}
+Регистрация/Авторизация
+{% endblock %}
+
+{% block header %}
+{{block.super}}
+{% endblock %}
+
+{% block navigation %}
+    {{block.super}}
+{% endblock  %}
+
+
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Регистрация или вход</h2>
+    <div class="row">
+        <!-- Форма регистрации -->
+        <div class="col-md-6">
+            <form method="post" class="border p-4 rounded shadow">
+                <h5 class="text-center">Регистрация</h5>
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" name="register" class="btn btn-primary w-100 mt-3">Зарегистрироваться</button>
+            </form>
+        </div>
+
+        <!-- Форма авторизации -->
+        <div class="col-md-6">
+            <form method="post" class="border p-4 rounded shadow">
+                <h5 class="text-center">Авторизация</h5>
+                {% csrf_token %}
+                {{ login_form.as_p }}
+                <button type="submit" name="login" class="btn btn-secondary w-100 mt-3">Войти</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

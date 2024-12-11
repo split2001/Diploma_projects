@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% block title %} Регистрация {% endblock %}
+{% block header %}
+{{ super() }}
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid vh-80" style="margin-top: 50px;">
+    <div class="d-flex justify-content-center align-items-center" style="height: 100%;">
+        <div class="col-md-4 col-sm-12 shadow-lg p-5 bg-light rounded">
+            <div class="text-center mb-4">
+                <h3 class="text-primary">Создать аккаунт</h3>
+            </div>
+            <div class="p-4">
+                <form method="post" enctype="multipart/form-data">
+                    {{ form.csrf_token }}
+
+                    <div class="mb-3">
+                        {{ form.username(class='form-control',placeholder='Имя пользователя') }}
+                        {% if form.username.errors %}
+                           <div class="text-danger-mt-1">
+                             {% for error in form.username.errors %}
+                               <span>{{error}}</span><br>
+                                {% endfor %}
+                               </div>
+                            {% endif %}
+                    </div>
+
+                    <div class="mb-3">
+                        {{ form.email(class='form-control',placeholder='Email')}}
+                    </div>
+
+                    <div class="mb-3">
+                        {{ form.password(class='form-control',placeholder='Пароль') }}
+                        {% for error in form.password.errors %}
+                           <div class="text-danger-mt-1">
+                             {% for error in form.password.errors %}
+                               {{error}}
+                                {% endfor %}
+                               </div>
+                            {% endfor %}
+                    </div>
+
+                    <div class="mb-3">
+                        {{ form.confirm_password(class='form-control',placeholder='Повторите пароль')}}
+                         {% for error in form.password.errors %}
+                           <div class="text-danger-mt-1">
+                             {% for error in form.password.errors %}
+                               {{error}}
+                                {% endfor %}
+                               </div>
+                            {% endfor %}
+                    </div>
+
+                    <div class="text-center">
+                        {{ form.submit(class='btn btn-success')}}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

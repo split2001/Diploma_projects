@@ -1,0 +1,100 @@
+{% extends 'C:\Users\davla\PycharmProjects\Diploma\diploma\templates\base.html' %}
+{% load static %}
+
+{% block title %}
+Лента
+{% endblock %}
+
+{% block header %}
+{{ block.super }}
+{% endblock %}
+
+{% block navigation %}
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+<div class="container" style="margin-top: 20px;margin-left: 120px">
+    <h1 class="text-center">Список рецептов</h1>
+
+    <!-- Выпадающий список для выбора количества элементов -->
+    <form method="get" class="text-center mb-4">
+        <label for="recipes_on_page">Количество элементов на странице:</label>
+        <select name="recipes_on_page" id="recipes_on_page" onchange="this.form.submit()">
+            <option value="3" {% if recipes_on_page == 3 %}selected{% endif %}>3</option>
+            <option value="5" {% if recipes_on_page == 5 %}selected{% endif %}>5</option>
+            <option value="10" {% if recipes_on_page == 10 %}selected{% endif %}>10</option>
+        </select>
+        <noscript><button type="submit">Применить</button></noscript>
+    </form>
+
+    <!-- Список рецептов -->
+    <div class="row">
+        {% for recipe in page_obj %}
+        <div class=" col-md-6 mb-4">
+            <div class="row g-0 border rounded overflow-hidden flex-md-row shadow-sm h-md-250 position-relative">
+                <div class="col p-4 d-flex flex-column position-static">
+                    <strong class="d-inline-block mb-2 text-primary-emphasis">Рецепт</strong>
+                    <h3 class="mb-3">{{ recipe.title }}</h3>
+                    <p class="card-text mb-auto">{{ recipe.description }}</p>
+                    <p class="card-text"><strong>Ингредиенты:</strong> {{ recipe.ingredients }}</p>
+                    <p class="card-text mb-auto"><strong>Инструкция:</strong>{{ recipe.instructions }}</p>
+                    <form method="post" action="{% url 'add_favorites' recipe.id%}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-primary">
+                        {% if user in recipe.favorites.all %}
+                            Удалить из избранного
+                        {% else %}
+                            Добавить в избранное
+                        {% endif %}
+                    </button>
+                </form>
+                </div>
+                <div class="col-auto d-none d-lg-block">
+                    {% if recipe.image %}
+                    <img src="{{ recipe.image.url }}" alt="{{ recipe.title }}" class="bd-placeholder-img img-thumbnail" width="200" height="250">
+                    {% else %}
+                    <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
+                        <rect width="100%" height="100%" fill="#55595c"></rect>
+                        <text x="50%" y="50%" fill="#eceeef" dy=".3em">Нет изображения</text>
+                    </svg>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p>Нет рецептов.</p>
+        {% endfor %}
+    </div>
+
+    <!-- Пагинация -->
+    <div class="text-center">
+        <div>
+            <p>Страница {{page_obj.number}} из {{ page_obj.paginator.num_pages }}</p>
+        </div>
+        <ul class="pagination d-flex justify-content-center">
+            {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page=1&recipes_on_page={{ recipes_on_page }}">&laquo; Первая</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}&recipes_on_page={{ recipes_on_page }}">Назад</a>
+                </li>
+            {% endif %}
+
+            <li class="page-item active">
+                <span class="page-link">{{ page_obj.number }}</span>
+            </li>
+
+            {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.next_page_number }}&recipes_on_page={{ recipes_on_page }}">Вперед</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}&recipes_on_page={{ recipes_on_page }}">Последняя&raquo;</a>
+                </li>
+            {% endif %}
+        </ul>
+    </div>
+</div>
+{% endblock %}
